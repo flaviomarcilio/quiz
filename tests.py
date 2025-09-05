@@ -131,3 +131,19 @@ def test_set_invalid_choices():
 
     with pytest.raises(Exception):
         question.set_correct_choices([4])
+
+@pytest.fixture
+def question_with_five_choices_and_two_correct():
+    question = Question(title='Questão 1', points=5, max_selections=2)
+    question.add_choice('a')
+    question.add_choice('b', True)
+    question.add_choice('c')
+    question.add_choice('d', True)
+    question.add_choice('e')
+    return question
+
+def test_max_selection(question_with_five_choices_and_two_correct):
+    assert question_with_five_choices_and_two_correct.max_selections == 2
+
+def test_question_with_five_choices(question_with_five_choices_and_two_correct):
+    assert len(question_with_five_choices_and_two_correct.choices) == 5
